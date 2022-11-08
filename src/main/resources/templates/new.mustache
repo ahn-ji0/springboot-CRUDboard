@@ -1,0 +1,13 @@
+{{>layout/header}}
+<form class = "container" action="/articles/post" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" name="title" placeholder="제목">
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Context</label>
+        <input type="text" class="form-control" name="content" placeholder="내용">
+    </div>
+    <button type="submit" class="btn btn-success">확인</button>
+</form>
+{{>layout/footer}}
