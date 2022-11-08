@@ -1,0 +1,23 @@
+{{>layout/header}}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+        </tr>
+    </thead>
+    <tbody class = "table-group-divider">
+        {{#articleList}}
+            <tr>
+                <th>{{id}}</th>
+                <td><a href="/articles/{{id}}">{{title}}</a></td>
+                <td>{{content}}</td>
+            </tr>
+        {{/articleList}}
+    </tbody>
+</table>
+<form action = "/articles/new">
+    <button type="button" class = "btn btn-success" onclick = "location.href = '/articles/new'">추가</button>
+</form>
+{{>layout/footer}}
