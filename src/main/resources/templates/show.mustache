@@ -1,0 +1,15 @@
+{{>layout/header}}
+<div>
+    {{#article}}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{id}}</h6>
+                <p class="card-text">{{content}}</p>
+                <a href="/articles/new" class="card-link">추가</a>
+                <a href="/articles/list" class="card-link">전체보기</a>
+            </div>
+        </div>
+    {{/article}}
+</div>
+{{>layout/footer}}
