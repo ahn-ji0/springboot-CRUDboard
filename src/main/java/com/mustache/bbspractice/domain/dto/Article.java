@@ -1,6 +1,6 @@
 package com.mustache.bbspractice.domain.dto;
 
-정import lombok.AllArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
