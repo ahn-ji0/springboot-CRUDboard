@@ -27,6 +27,7 @@ public class ArticleController {
         return "redirect:/articles/list";
     }
 
+    //새로운 article 작성 관련
     @GetMapping("/new")
     public String createArticles(){
         return "articles/new";
@@ -41,6 +42,7 @@ public class ArticleController {
         return String.format("redirect:/articles/%d",savedArticle.getId());
     }
 
+    //기존 article 수정 관련
     @GetMapping("/{id}/edit")
     public String editSingle(@PathVariable Long id, Model model){
         Optional<Article> optionalArticle = articleRepository.findById(id);
@@ -59,6 +61,7 @@ public class ArticleController {
         articleRepository.save(savedArticle);
         return "redirect:/articles/list";
     }
+    //id에 해당하는 특정 게시물 가져오기 관련
     @GetMapping("/{id}")
     public String selectSingle(@PathVariable Long id, Model model){
         Optional<Article> optionalArticle = articleRepository.findById(id);
@@ -71,6 +74,7 @@ public class ArticleController {
         }
     }
 
+    //모든 게시물 가져오기 관련
     @GetMapping("/list")
     public String listAll(Model model){
         List<Article> articleList = articleRepository.findAll();
