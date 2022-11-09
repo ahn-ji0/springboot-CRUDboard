@@ -61,6 +61,14 @@ public class ArticleController {
         articleRepository.save(savedArticle);
         return "redirect:/articles/list";
     }
+
+    //id에 해당하는 게시물 지우기 관련
+    @GetMapping("/{id}/delete")
+    public String deleteSingle(@PathVariable Long id, Model model){
+        articleRepository.deleteById(id);
+        return "redirect:/articles/list";
+    }
+
     //id에 해당하는 특정 게시물 가져오기 관련
     @GetMapping("/{id}")
     public String selectSingle(@PathVariable Long id, Model model){
@@ -81,4 +89,5 @@ public class ArticleController {
         model.addAttribute("articleList",articleList);
         return "articles/list";
     }
+
 }
