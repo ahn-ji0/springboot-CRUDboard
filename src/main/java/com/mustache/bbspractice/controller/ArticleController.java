@@ -6,10 +6,7 @@ import com.mustache.bbspractice.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,13 +22,18 @@ public class ArticleController {
         this.articleRepository = articleRepository;
     }
 
+    @GetMapping("")
+    public String list(){
+        return "redirect:/articles/list";
+    }
+
     @GetMapping("/new")
     public String createArticles(){
-        return "new";
+        return "articles/new";
     }
 
     @PostMapping("/post")
-    public String articles(ArticleDto articleDto){
+    public String postArticles(ArticleDto articleDto){
         log.info(articleDto.getTitle());
         log.info(articleDto.getContent());
         Article savedArticle = articleDto.toEntity();
@@ -39,26 +41,40 @@ public class ArticleController {
         return String.format("redirect:/articles/%d",savedArticle.getId());
     }
 
+    @GetMapping("/{id}/edit")
+    public String editSingle(@PathVariable Long id, Model model){
+        Optional<Article> optionalArticle = articleRepository.findById(id);
+        if(!optionalArticle.isEmpty()){
+            model.addAttribute("article",optionalArticle.get());
+            return "articles/edit";
+        }
+        else{
+            return "articles/error";
+        }
+    }
+    @PostMapping("/{id}/update")
+    public String updateSingle(@PathVariable Long id, ArticleDto articleDto){
+        log.info("title:{} content:{}",articleDto.getTitle(),articleDto.getContent());
+        Article savedArticle = articleDto.toEntity(id);
+        articleRepository.save(savedArticle);
+        return "redirect:/articles/list";
+    }
     @GetMapping("/{id}")
     public String selectSingle(@PathVariable Long id, Model model){
         Optional<Article> optionalArticle = articleRepository.findById(id);
         if(!optionalArticle.isEmpty()) {
             model.addAttribute("article",optionalArticle.get());
-            return "show";
+            return "articles/show";
         }
         else {
-            return "error";
+            return "articles/error";
         }
     }
 
-    @GetMapping("")
-    public String list(){
-        return "redirect:/articles/list";
-    }
     @GetMapping("/list")
-    public String list(Model model){
+    public String listAll(Model model){
         List<Article> articleList = articleRepository.findAll();
         model.addAttribute("articleList",articleList);
-        return "list";
+        return "articles/list";
     }
 }
